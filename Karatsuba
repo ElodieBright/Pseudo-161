@@ -1,0 +1,35 @@
+def karatsuba(x: int, y: int, base=10**4, cutoff=32) -> int:
+    # 处理符号
+    sign = 1
+    if x < 0: x, sign = -x, -sign
+    if y < 0: y, sign = -y, -sign
+
+    # 小规模直接乘
+    if x < base**cutoff and y < base**cutoff:
+        return sign * (x * y)
+
+    # 以 base^m2 为界拆分
+    def num_digits(n, base):
+        if n == 0: return 1
+        cnt = 0
+        while n:
+            n //= base
+            cnt += 1
+        return cnt
+
+    m = max(num_digits(x, base), num_digits(y, base))
+    m2 = (m + 1) // 2
+    split_pow = pow(base, m2)
+
+    a, b = divmod(x, split_pow)
+    c, d = divmod(y, split_pow)
+
+    z0 = karatsuba(b, d, base, cutoff)             # bd
+    z2 = karatsuba(a, c, base, cutoff)             # ac
+    z1 = karatsuba(a + b, c + d, base, cutoff) - z2 - z0
+
+    return sign * (z2 * (split_pow**2) + z1 * split_pow + z0)
+
+# n1 = a^n/2 + b
+# n2 = c^n/2 + d
+# calculate ad+bc, bd, ac
