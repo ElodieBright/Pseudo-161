@@ -1,0 +1,21 @@
+MergeSort(A):
+  n = len(A)
+  if n <= 1:
+    return A
+  L = MergeSort( A[:n/2] )
+  R = MergeSort( A[n/2:] )
+  return Merge(L, R)
+
+Merge(L, R):
+  m = len(L) + len(R)
+  S = [ ]
+  for k in range(m):
+    if L[i] < R[j]:
+      S.append( L[i] )
+      i += 1
+    else:
+      S.append( R[j] )
+      j += 1
+  return S
+
+# O(nlogn)
