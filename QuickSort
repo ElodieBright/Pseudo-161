@@ -6,3 +6,7 @@ else
  Split A into A< = {A[i] | A[i] < x} and A> = {A[i] | A[i] > x}.
  Rearrange A into [A<, x, A>]. # Here the difference
  Recurse on A< and A>
+
+
+# Medium of mediums -> O(n)
+# T(n) = cn + T(n-k) + T(k) = O(nlogn)
