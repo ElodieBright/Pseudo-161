@@ -1,0 +1,8 @@
+# based on k-select
+if length(A) ≤ 1 then
+  return A // It is trivially sorted
+else
+ Pick some element x ← A[i]. // We call x the pivot.
+ Split A into A< = {A[i] | A[i] < x} and A> = {A[i] | A[i] > x}.
+ Rearrange A into [A<, x, A>]. # Here the difference
+ Recurse on A< and A>
