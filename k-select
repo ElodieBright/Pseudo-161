@@ -1,0 +1,22 @@
+# pivot selection
+Split A into g = ⌈n/5⌉ groups p1, . . . , pg
+for i = 1 to g do
+pi ← MergeSort(pi )
+C ← {median of pi
+| i = 1, . . . , g}
+p ← Select(C, g, g/2)
+return p
+
+# recursively size reduction
+# Select(A, n, k)
+if n = 1 then
+return A[1]
+p ← ChoosePivot(A, n)
+A< ← {A(i) | A(i) < p}
+A> ← {A(i) | A(i) > p}
+if |A<| = k − 1 then
+return p
+else if |A<| > k − 1 then
+return Select(A<, |A<|, k)
+else if |A<| < k − 1 then
+return Select(A>, |A>|, k − |A<| − 1)
