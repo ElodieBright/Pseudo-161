@@ -1,0 +1,12 @@
+if key(x) == i then
+  return x
+else if i < key(x) then
+  if left(x) == NIL then
+    return x
+  else
+    return search(left(x), i)
+else if i > key(x) then
+  if right(x) == NIL then
+    return x
+  else
+    return search(right(x), i)
