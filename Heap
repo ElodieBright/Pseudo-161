@@ -1,0 +1,43 @@
+# Heap insertion
+x ← first node without two children
+y ← new node with key(y ) ← i, left(y ) ← NIL,right(y ) ← NIL, p(y ) ← x
+if left(x) == NIL then
+  left(x) ← y
+else
+  right(x) ← y
+while p(y ) ̸= NIL & key(p(y )) > key(y ) do
+    v ← key(y )
+    key(y ) ← key(p(y ))
+    key(p(y )) ← v
+    y ← p(y )
+
+# Heap extract-min
+x ← last node
+r ← root; m ← key(r )
+key(r ) ← key(x)
+if right(p(x)) == NIL then
+  left(p(x)) ← NIL
+else
+  right(p(x)) ← NIL
+delete node(x)
+while True do
+  if left(r ) == NIL then
+    break
+  else if key(left(r )) < key(r ) & right(r ) == NIL then
+    v ← key(r )
+    key(r ) ← key(left(r ))
+    key(left(r )) ← v
+    r ← left(r )
+  else if key(left(r )) < key(r ), key(right(r )) then
+    v ← key(r )
+    key(r ) ← key(left(r ))
+    key(left(r )) ← v
+    r ← left(r )
+  else if key(right(r )) < key(r ), key(left(r )) then
+    v ← key(r )
+    key(r ) ← key(right(r ))
+    key(right(r )) ← v
+    r ← right(r )
+  else
+    break
+return m
