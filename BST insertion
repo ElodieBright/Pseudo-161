@@ -1,0 +1,7 @@
+# 因为search会恰好停在合适的有空子节点的位置
+x ← search(i)
+y ← new node with key(y ) ← i, left(y ) ← NIL,right(y ) ← NIL, p(y ) ← x
+if i < key(x) then
+  left(x) ← y
+else
+  right(x) ← y
