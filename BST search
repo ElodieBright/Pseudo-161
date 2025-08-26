@@ -10,3 +10,5 @@ else if i > key(x) then
     return x
   else
     return search(right(x), i)
+
+# O(height of tree)
