@@ -1,0 +1,6 @@
+# s is the tree
+T ← empty queue
+Push s onto T
+while T is not empty do
+  u ← pop from front of T
+  Push all unvisited neighbors of u on back of queue T
