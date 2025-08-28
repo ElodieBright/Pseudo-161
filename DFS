@@ -1,3 +1,4 @@
+# s is the tree
 T ← empty stack
 Push s onto T
 while T is not empty do
