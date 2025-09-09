@@ -1,0 +1,62 @@
+问题是“将一环联通图还原成树”
+nodes: 1~n
+edges: (nodex, nodey)_1~(nodea, nodeb)_n
+return: the redundant edge
+source: LC684, LC685, LC98
+
+function FIND(x):
+  if parent[x] not x:
+    parent[x] <- FIND(parent[x])
+  return parent[x]
+
+function UNION(x, y):
+  rootX <- FIND(x)
+  rootY <- FIND(y)
+  if rootX is rootY:
+    return
+  if rank[rootX] < rank[rootY]:
+    parent[rootX] <- rootY
+  else if rank[rootY] > rank[rootX]:
+    parent[rootY] <- rootX
+  else:
+    parent[rootY] <- rootX
+    rank[rootX] <- rank[rootX] + 1
+
+685 hard:
+1. parent = [1..n]
+2. edge1, edge2 = null
+
+// Step 1: find if any node has two parents
+for (u, v) in edges:
+    if indegree[v] == 1:
+        edge1 = (first parent, v)
+        edge2 = (u, v)
+        mark edge2 as "skip"   // 先忽略它
+    else:
+        indegree[v]++
+
+initialize Union-Find
+
+// Step 2: union edges (skip edge2 if marked)
+for (u, v) in edges:
+    if (u, v) == edge2: continue
+    if find(u) == find(v):
+        if edge1 == null:
+            return (u, v)   // Case 1: only cycle
+        else:
+            return edge1    // Case 3: cycle + two parents
+    union(u, v)
+
+// Step 3: if no cycle, must be Case 2
+return edge2
+
+
+685思路：
+先遍历所有边，检测是否有多父节点：
+如果发现某个节点 v 有两个 parent，就记下 edge1 和 edge2。
+再用 Union-Find 检查成环情况：
+如果没有多父：直接返回导致环的边。
+如果有多父：
+尝试忽略 edge2，用 Union-Find 看图里会不会成环。
+如果有环 → 那说明 edge1 是多余边。
+如果没环 → 那说明 edge2 是多余边。
