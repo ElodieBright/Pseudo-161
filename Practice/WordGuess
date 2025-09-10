@@ -1,0 +1,39 @@
+问题是从words list中根据提示猜十次找到the secret word。每次猜测会得到与the secret word相同的字母位置数量
+source: LeetCode843
+思路：MiniMax
+
+function match(a, b):
+    cnt = 0
+    for i in 0..5:
+        if a[i] == b[i]: cnt += 1
+    return cnt
+
+function findSecretWord(words, master):
+    candidates = words.copy()
+
+    repeat up to 10 times:
+        bestWord = null
+        bestWorst = +inf
+
+        # 1) 选一个分割“最平衡”的词（minimax）
+        for x in candidates:
+            buckets = array[7] filled with 0  # 统计反馈0..6的组大小
+            for y in candidates:
+                k = match(x, y)
+                buckets[k] += 1
+            worst = max(buckets)  # 最坏一组的大小
+            if worst < bestWorst:
+                bestWorst = worst
+                bestWord = x
+
+        # 2) 猜这个词
+        res = master.guess(bestWord)  # 返回0..6
+        if res == 6:
+            return  # 找到了
+
+        # 3) 过滤候选集：只保留与反馈一致的词
+        newCandidates = []
+        for w in candidates:
+            if match(bestWord, w) == res:
+                newCandidates.append(w)
+        candidates = newCandidates
