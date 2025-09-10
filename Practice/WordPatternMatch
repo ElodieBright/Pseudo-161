@@ -1,0 +1,15 @@
+Pattern是一个word，words是一个word list
+如果word list里面的某个word每个字母加上相同的数字能够ACII-ly等于Pattern，那就必须出现在return里
+source: LeetCode890
+思路：Canonical Form
+
+function encode(s):
+    map = empty dict   // char -> next id
+    next_id = 0
+    code = empty list
+    for ch in s:
+        if ch not in map:
+            map[ch] = next_id
+            next_id += 1
+        code.append(map[ch])
+    return code
